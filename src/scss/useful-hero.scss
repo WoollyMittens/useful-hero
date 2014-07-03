@@ -1,0 +1,134 @@
+/*
+	Reference Styling for a slideshow banner
+*/
+
+@media all {
+
+	@import "compass/css3";
+	@import "compass/utilities";
+	@import "definitions";
+	@import "typography";
+
+	/*
+		Banners Main Styles
+	*/
+
+	.hero {
+		background : Transparent;
+		display : block;
+		margin: 64px 0px 0px 0px;
+		min-height : 25px;
+		overflow : visible;
+		position : relative;
+		width : 100%;
+		z-index : 0;
+		* {
+			-webkit-box-sizing : border-box;
+			box-sizing : border-box;
+		}
+		.hero-wrapper {
+			height : 100%;
+			overflow : hidden;
+			position : relative;
+			width : 100%;
+		}
+	}
+
+	/*
+		Framed layout moves the controls onto the slide instead of underneath
+	*/
+
+	.hero {
+		&.hero-framed {
+			margin-top : 0;
+		}
+		&.hero-framed menu {
+			bottom : 0;
+			z-index : 10;
+		}
+	}
+
+	/*
+		Slides
+	*/
+
+	.hero {
+		.hero-slide {
+			-webkit-transition-property : left;
+			transition-property : left;
+			-webkit-transition-duration : 500ms;
+			transition-duration : 500ms;
+			background-color : #000;
+			background-image : url(../img/spiffygif_60x60.gif);
+			background-repeat : no-repeat;
+			background-position : 50% 50%;
+			background-size : 30px 30px;
+			display : block;
+			height : 100%;
+			left : 0%;
+			top : 0;
+			width : 100%;
+			margin : 0;
+			padding : 0;
+			position : absolute;
+			text-align : center;
+			z-index : 5 !important;
+			img {
+				height : auto;
+				position : relative;
+				vertical-align : top;
+				width : 100%;
+			}
+		}
+		.hero-centre {
+			z-index : 10 !important;
+		}
+		.hero-left {
+			left : -100%;
+		}
+		.hero-right {
+			left : 100%;
+		}
+	}
+
+	/*
+		Controls
+	*/
+
+	.hero {
+		menu {
+			height : 25px;
+			line-height : 25px;
+			margin : 0;
+			padding : 0;
+			position : absolute;
+			bottom : -25px;
+			left : 0;
+			right : 0;
+			text-align : center;
+			a {
+				background-color : #ffffff;
+				border : solid 1px #000000;
+				border-radius : 50%;
+				display : inline-block;
+				height : 10px;
+				margin : 0 2px;
+				overflow : hidden;
+				text-indent : 16px;
+				width : 10px;
+			}
+			.hero-passive {}
+			.hero-active {
+				background-color : #ff6a00;
+			}
+		}
+	}
+
+}
+
+@media (min-width: 1200px) {}
+@media (min-width: 980px) and (max-width: 1199px) {}
+@media (min-width: 768px) and (max-width: 979px) {}
+@media (max-width: 767px) {}
+@media (max-width: 480px) {}
+@media print {}
