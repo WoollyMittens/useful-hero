@@ -41,9 +41,7 @@
 */
 .hero {
 	.hero-slide {
-		-webkit-transition-property : left;
-		transition-property : left;
-		-webkit-transition-duration : 500ms;
+		transition-property : transform;
 		transition-duration : 500ms;
 		background-color : #000;
 		background-image : url(../img/spiffygif_60x60.gif);
@@ -71,10 +69,10 @@
 		z-index : 10 !important;
 	}
 	.hero-left {
-		left : -100%;
+		transform : translate(-100%, 0);
 	}
 	.hero-right {
-		left : 100%;
+		transform : translate(100%, 0);
 	}
 }
 /*

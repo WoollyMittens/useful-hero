@@ -6,7 +6,10 @@
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 */
 
-(function (useful) {
+// public object
+var useful = useful || {};
+
+(function(){
 
 	"use strict";
 
@@ -26,11 +29,6 @@
 			this.addControls();
 			// wait for a redraw and start the banner
 			setTimeout(function () { _this.loadPage(0); }, 0);
-			// if an automatic loop is called for
-			if (this.cfg.interval > 0) {
-				// increment the slides at an interval
-				setInterval(function () { _this.loopPage(); }, this.cfg.interval);
-			}
 			// in case the window is resized
 			window.addEventListener('resize', this.onWindowResized());
 			// disable the start function so it can't be started twice
@@ -159,11 +157,15 @@
 			this.loadPage(this.cfg.index + increment);
 		};
 		this.loadPage = function (index) {
-			var slides = this.cfg.slides, image = slides[index].image;
-			// load the image if needed
-			if (!image.src) { image.src = image.getAttribute('data-src'); }
-			// show it
-			this.showPage(index);
+			var slides = this.cfg.slides;
+			// if the index is within bounds
+			if (index >= 0 && index < slides.length) {
+				var image = slides[index].image;
+				// load the image if needed
+				if (!image.src) { image.src = image.getAttribute('data-src'); }
+				// show it
+				this.showPage(index);
+			}
 		};
 		this.showPage = function (index) {
 			var _this = this,
@@ -207,6 +209,9 @@
 			// allow clicks after all this is done
 			clearTimeout(this.cfg.inertTimeout);
 			this.cfg.inertTimeout = setTimeout( function () { _this.cfg.inert = false; }, 300 );
+			// allow the interval slides afterwards
+			clearTimeout(this.cfg.autoTimeout);
+			this.cfg.autoTimeout = (this.cfg.interval > 0) ? setTimeout(function () { _this.loopPage(); }, this.cfg.interval) : null;
 		};
 		// events
 		this.onHandleGestures = function (slide, index) {
@@ -260,4 +265,9 @@
 		this.start();
 	};
 
-}(window.useful = window.useful || {}));
+	// return as a require.js module
+	if (typeof module !== 'undefined') {
+		exports = module.exports = useful.Hero;
+	}
+
+})();

@@ -69,10 +69,10 @@
 */
 /* line 43, ../../src/scss/useful-hero.scss */
 .hero .hero-slide {
-  -webkit-transition-property: left;
-  transition-property: left;
+  -webkit-transition-property: -webkit-transform;
+          transition-property: transform;
   -webkit-transition-duration: 500ms;
-  transition-duration: 500ms;
+          transition-duration: 500ms;
   background-color: #000;
   background-image: url(../img/spiffygif_60x60.gif);
   background-repeat: no-repeat;
@@ -89,30 +89,34 @@
   text-align: center;
   z-index: 5 !important;
 }
-/* line 63, ../../src/scss/useful-hero.scss */
+/* line 61, ../../src/scss/useful-hero.scss */
 .hero .hero-slide img {
   height: auto;
   position: relative;
   vertical-align: top;
   width: 100%;
 }
-/* line 70, ../../src/scss/useful-hero.scss */
+/* line 68, ../../src/scss/useful-hero.scss */
 .hero .hero-centre {
   z-index: 10 !important;
 }
-/* line 73, ../../src/scss/useful-hero.scss */
+/* line 71, ../../src/scss/useful-hero.scss */
 .hero .hero-left {
-  left: -100%;
+  -webkit-transform: translate(-100%, 0);
+      -ms-transform: translate(-100%, 0);
+          transform: translate(-100%, 0);
 }
-/* line 76, ../../src/scss/useful-hero.scss */
+/* line 74, ../../src/scss/useful-hero.scss */
 .hero .hero-right {
-  left: 100%;
+  -webkit-transform: translate(100%, 0);
+      -ms-transform: translate(100%, 0);
+          transform: translate(100%, 0);
 }
 
 /*
 	Controls
 */
-/* line 84, ../../src/scss/useful-hero.scss */
+/* line 82, ../../src/scss/useful-hero.scss */
 .hero menu {
   height: 25px;
   line-height: 25px;
@@ -124,7 +128,7 @@
   right: 0;
   text-align: center;
 }
-/* line 94, ../../src/scss/useful-hero.scss */
+/* line 92, ../../src/scss/useful-hero.scss */
 .hero menu a {
   background-color: #ffffff;
   border: solid 1px #000000;
@@ -136,7 +140,7 @@
   text-indent: 16px;
   width: 10px;
 }
-/* line 106, ../../src/scss/useful-hero.scss */
+/* line 104, ../../src/scss/useful-hero.scss */
 .hero menu .hero-active {
   background-color: #ff6a00;
 }
