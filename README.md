@@ -26,6 +26,36 @@ To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5
 <![endif]-->
 ```
 
+## How to start the script
+
+```javascript
+var hero = new useful.Hero().init({
+	'element' : document.getElementById('heroExample'),
+	'imageslice' : 'inc/php/imageslice.php?src=../../{src}&width={width}',
+	'maxHeight' : 360,
+	'overscan' : 1,
+	'interval' : 8000,
+	'slides' : [
+		{'src' : './inc/img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
+		{'src' : './inc/img/photo_2a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 3'); evt.preventDefault(); }},
+		{'src' : './inc/img/photo_9a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 5'); evt.preventDefault(); }}
+	]
+});
+```
+
+**imageslice : {url}** - A web-service able to resize images while preserving the aspect ratio.
+
+**maxHeight : {integer}** - The maximum amount of vertical space the slideshow may occupy.
+
+**overscan : {float}** - The fraction of the image that can safely stick outside the edge of the screen.
+
+**interval : {integer}** - Amount of milliseconds between slides.
+
+**slides : {array}** - Collection of slides.
++ **src : {string}** - Source of the image.
++ **url : {string}** - Destination of the link.
++ **event : {function}** - Click handler of the link.
+
 ## How to build the script
 
 This project uses node.js from http://nodejs.org/

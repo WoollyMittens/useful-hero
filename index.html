@@ -33,7 +33,8 @@
 				<script>
 				//<!--
 					// create a new instance of the script
-					var hero = new useful.Hero( document.getElementById('heroExample'), {
+					var hero = new useful.Hero().init({
+						'element' : document.getElementById('heroExample'),
 						'imageslice' : 'inc/php/imageslice.php?src=../../{src}&width={width}',
 						'maxHeight' : 360,
 						'overscan' : 1,
