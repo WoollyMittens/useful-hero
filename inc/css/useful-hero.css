@@ -69,10 +69,9 @@ Applies the "clearfix" hack to a container with floating content
 */
 /* line 43, ../../src/scss/useful-hero.scss */
 .hero .hero-slide {
-  -webkit-transition-property: -webkit-transform;
-          transition-property: transform;
-  -webkit-transition-duration: 500ms;
-          transition-duration: 500ms;
+  transition-property: -webkit-transform;
+  transition-property: transform;
+  transition-duration: 500ms;
   background-color: #000;
   background-image: url(../img/spiffygif_60x60.gif);
   background-repeat: no-repeat;
