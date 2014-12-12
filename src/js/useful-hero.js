@@ -6,23 +6,27 @@
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 */
 
-// create the constructor if needed
+// create the global object if needed
 var useful = useful || {};
-useful.Hero = useful.Hero || function () {};
 
-// extend the constructor
-useful.Hero.prototype.init = function (cfg) {
-	// properties
+// extend the global object
+useful.Hero = function () {
+
+	// PROPERTIES
+
 	"use strict";
-	this.cfg = cfg;
-	this.obj = cfg.element;
-	// methods
-	this.start = function () {
+
+	// METHODS
+
+	this.init = function (config) {
 		var _this = this;
+		// store the config
+		this.config = config;
+		this.element = config.element;
 		// default values
-		this.cfg.imageslice = this.cfg.imageslice || '{src}';
-		this.cfg.index = 0;
-		this.cfg.revealTimeout = null;
+		this.config.imageslice = this.config.imageslice || '{src}';
+		this.config.index = 0;
+		this.config.revealTimeout = null;
 		// build the html
 		this.addSlides();
 		this.addControls();
@@ -30,41 +34,42 @@ useful.Hero.prototype.init = function (cfg) {
 		setTimeout(function () { _this.loadPage(0); }, 0);
 		// in case the window is resized
 		window.addEventListener('resize', this.onWindowResized());
-		// disable the start function so it can't be started twice
-		this.start = function () {};
+		// return the object
+		return this;
 	};
+
 	this.addSlides = function () {
 		// working vars
-		var hero = this.obj,
-			cfg = this.cfg,
-			width = this.obj.offsetWidth,
+		var hero = this.element,
+			config = this.config,
+			width = this.element.offsetWidth,
 			wrapper, figure, slide, link, image, slice, position;
 		// hide the parent while its under constuction
-		this.obj.style.visibility = 'hidden';
+		this.element.style.visibility = 'hidden';
 		// build a wrapper for the slides
 		wrapper = document.createElement('div');
 		wrapper.setAttribute('class', 'hero-wrapper');
 		// use the optional image slicer is available
-		slice = (cfg.imageslice) ? cfg.imageslice : '{src}';
+		slice = (config.imageslice) ? config.imageslice : '{src}';
 		// add the individual slides
-		for (var a = 0, b = cfg.slides.length; a < b; a += 1) {
+		for (var a = 0, b = config.slides.length; a < b; a += 1) {
 			// determine the starting position of the slide
 			position = (a === 0) ? 'hero-slide hero-centre': 'hero-slide hero-right';
 			// create the link
 			link = document.createElement('a');
-			link.setAttribute('href', cfg.slides[a].url || '#');
+			link.setAttribute('href', config.slides[a].url || '#');
 			link.setAttribute('target', '_blank');
 			link.setAttribute('class', position);
-			link.style.zIndex = cfg.slides.length - a;
+			link.style.zIndex = config.slides.length - a;
 			// slice/size the image
-			slice = this.cfg.imageslice
-				.replace('{src}', cfg.slides[a].src)
+			slice = this.config.imageslice
+				.replace('{src}', config.slides[a].src)
 				.replace('{width}', width);
 			// create the image
 			image = document.createElement('img');
 			image.setAttribute('alt', '');
-			image.style.width = cfg.overscan * 100 + '%';
-			image.style.marginLeft = (1 - cfg.overscan) / 2 * 100 + '%';
+			image.style.width = config.overscan * 100 + '%';
+			image.style.marginLeft = (1 - config.overscan) / 2 * 100 + '%';
 			image.style.marginRight = image.style.marginLeft;
 			image.style.height = 'auto';
 			image.style.visibility = 'hidden';
@@ -76,16 +81,17 @@ useful.Hero.prototype.init = function (cfg) {
 			// add touch controls
 			this.onHandleGestures(link, a);
 			// store a pointer
-			cfg.slides[a].link = link;
-			cfg.slides[a].image = image;
+			config.slides[a].link = link;
+			config.slides[a].image = image;
 		}
 		// replace the old banner
-		this.obj.style.maxHeight = (this.cfg.maxHeight) ? this.cfg.maxHeight + 'px' : '100%';
-		this.obj.innerHTML = '';
-		this.obj.appendChild(wrapper);
+		this.element.style.maxHeight = (this.config.maxHeight) ? this.config.maxHeight + 'px' : '100%';
+		this.element.innerHTML = '';
+		this.element.appendChild(wrapper);
 	};
+
 	this.addControls = function () {
-		var button, slides = this.cfg.slides;
+		var button, slides = this.config.slides;
 		// add the menu
 		var menu = document.createElement('menu');
 		// for every figure
@@ -104,17 +110,19 @@ useful.Hero.prototype.init = function (cfg) {
 		// hide the menu if there's only one slide
 		if (slides.length < 2) { menu.style.visibility = 'hidden'; }
 		// add the menu to the  component
-		this.obj.appendChild(menu);
+		this.element.appendChild(menu);
 	};
+
 	this.fixWidth = function (image) {
 		// if there is a max height
-		if (this.cfg.maxHeight) {
+		if (this.config.maxHeight) {
 			// calculate the aspect ratio of the image
 			var aspect = image.offsetWidth / image.offsetHeight;
 			// calculate the max-width of the image according to its ratio
-			image.style.maxWidth = (this.cfg.maxHeight * aspect) + 'px';
+			image.style.maxWidth = (this.config.maxHeight * aspect) + 'px';
 		}
 	};
+
 	this.prepareImage = function (image) {
 		var _this = this;
 		// if there is a max height, fix the max width to the same ratio
@@ -124,10 +132,11 @@ useful.Hero.prototype.init = function (cfg) {
 		// reveal the image
 		image.style.visibility = 'visible';
 		// reveal the parent
-		_this.obj.style.visibility = 'visible';
+		_this.element.style.visibility = 'visible';
 	};
+
 	this.adjustHeight = function () {
-		var image, height = 0, slides = this.cfg.slides;
+		var image, height = 0, slides = this.config.slides;
 		// re-fit the images
 		for (var a = 0, b = slides.length; a < b; a += 1) {
 			// get the image that goes with this slide
@@ -139,24 +148,27 @@ useful.Hero.prototype.init = function (cfg) {
 			image.style.marginTop = -(image.offsetHeight / 2) + 'px';
 		}
 		// implement the new height
-		this.obj.style.height = height + 'px';
+		this.element.style.height = height + 'px';
 	};
+
 	this.loopPage = function () {
-		var slides = this.cfg.slides, max = slides.length - 1, min = 0;
+		var slides = this.config.slides, max = slides.length - 1, min = 0;
 		// increment current index
-		var index = this.cfg.index + 1;
+		var index = this.config.index + 1;
 		// adjust the index if it's out of bounds
 		index = (index > max) ? 0 : index;
 		index = (index < min) ? max : index;
 		// call the page
 		this.loadPage(index);
 	};
+
 	this.incrementPage = function (increment) {
 		// add the increment to the index
-		this.loadPage(this.cfg.index + increment);
+		this.loadPage(this.config.index + increment);
 	};
+
 	this.loadPage = function (index) {
-		var slides = this.cfg.slides;
+		var slides = this.config.slides;
 		// if the index is within bounds
 		if (index >= 0 && index < slides.length) {
 			var image = slides[index].image;
@@ -166,14 +178,15 @@ useful.Hero.prototype.init = function (cfg) {
 			this.showPage(index);
 		}
 	};
+
 	this.showPage = function (index) {
 		var _this = this,
-			link, button, slides = this.cfg.slides,
+			link, button, slides = this.config.slides,
 			min = 0, max = slides.length - 1,
 			states = new RegExp('hero-passive|hero-active', 'g'),
 			positions = new RegExp('hero-left|hero-centre|hero-right', 'g');
 		// stop clicks while the slides are changing
-		this.cfg.inert = true;
+		this.config.inert = true;
 		// adjust the index if it's out of bounds
 		index = (index > max) ? max : index;
 		index = (index < min) ? min : index;
@@ -204,15 +217,17 @@ useful.Hero.prototype.init = function (cfg) {
 			}
 		}
 		// store the index
-		this.cfg.index = index;
+		this.config.index = index;
 		// allow clicks after all this is done
-		clearTimeout(this.cfg.inertTimeout);
-		this.cfg.inertTimeout = setTimeout( function () { _this.cfg.inert = false; }, 300 );
+		clearTimeout(this.config.inertTimeout);
+		this.config.inertTimeout = setTimeout( function () { _this.config.inert = false; }, 300 );
 		// allow the interval slides afterwards
-		clearTimeout(this.cfg.autoTimeout);
-		this.cfg.autoTimeout = (this.cfg.interval > 0) ? setTimeout(function () { _this.loopPage(); }, this.cfg.interval) : null;
+		clearTimeout(this.config.autoTimeout);
+		this.config.autoTimeout = (this.config.interval > 0) ? setTimeout(function () { _this.loopPage(); }, this.config.interval) : null;
 	};
-	// events
+
+	// EVENTS
+
 	this.onHandleGestures = function (slide, index) {
 		var _this = this;
 		// add mouse/touch events
@@ -228,15 +243,17 @@ useful.Hero.prototype.init = function (cfg) {
 		// add click event
 		slide.addEventListener('click', this.onLinkClicked(index));
 	};
+
 	this.onLinkClicked = function (index) {
-		var _this = this, slide = this.cfg.slides[index];
+		var _this = this, slide = this.config.slides[index];
 		return function (event) {
 			// if the slide was not busy cancel the click
-			if (_this.cfg.inert) { event.preventDefault(); }
+			if (_this.config.inert) { event.preventDefault(); }
 			// else if available call the event handler
 			else if (slide.event) { slide.event(event); }
 		};
 	};
+
 	this.onImageLoaded = function (image) {
 		var _this = this;
 		return function () {
@@ -244,6 +261,7 @@ useful.Hero.prototype.init = function (cfg) {
 			_this.prepareImage(image);
 		};
 	};
+
 	this.onWindowResized = function () {
 		var _this = this;
 		return function () {
@@ -251,6 +269,7 @@ useful.Hero.prototype.init = function (cfg) {
 			_this.adjustHeight();
 		};
 	};
+
 	this.onShowPage = function (index) {
 		var _this = this;
 		return function (evt) {
@@ -261,9 +280,7 @@ useful.Hero.prototype.init = function (cfg) {
 			_this.loadPage(index);
 		};
 	};
-	// go
-	this.start();
-	return this;
+	
 };
 
 // return as a require.js module
