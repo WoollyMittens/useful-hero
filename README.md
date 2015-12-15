@@ -31,14 +31,14 @@ To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5
 ```javascript
 var hero = new useful.Hero().init({
 	'element' : document.getElementById('heroExample'),
-	'imageslice' : 'inc/php/imageslice.php?src=../../{src}&width={width}',
+	'imageslice' : 'php/imageslice.php?src=../{src}&width={width}',
 	'maxHeight' : 360,
 	'overscan' : 1,
 	'interval' : 8000,
 	'slides' : [
-		{'src' : './inc/img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
-		{'src' : './inc/img/photo_2a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 3'); evt.preventDefault(); }},
-		{'src' : './inc/img/photo_9a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 5'); evt.preventDefault(); }}
+		{'src' : './img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
+		{'src' : './img/photo_2a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 3'); evt.preventDefault(); }},
+		{'src' : './img/photo_9a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 5'); evt.preventDefault(); }}
 	]
 });
 ```
@@ -60,15 +60,15 @@ var hero = new useful.Hero().init({
 
 This project uses node.js from http://nodejs.org/
 
-This project uses grunt.js from http://gruntjs.com/
+This project uses gulp.js from http://gulpjs.com/
 
 The following commands are available for development:
 + `npm install` - Installs the prerequisites.
-+ `grunt import` - Re-imports libraries from supporting projects to `./src/libs/` if available under the same folder tree.
-+ `grunt dev` - Builds the project for development purposes.
-+ `grunt prod` - Builds the project for deployment purposes.
-+ `grunt watch` - Continuously recompiles updated files during development sessions.
-+ `grunt serve` - Serves the project on a temporary web server at http://localhost:8000/ .
++ `gulp import` - Re-imports libraries from supporting projects to `./src/libs/` if available under the same folder tree.
++ `gulp dev` - Builds the project for development purposes.
++ `gulp prod` - Builds the project for deployment purposes.
++ `gulp watch` - Continuously recompiles updated files during development sessions.
++ `gulp serve` - Serves the project on a temporary web server at http://localhost:8000/ .
 
 ## License
 

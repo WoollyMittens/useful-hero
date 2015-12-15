@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>useful-hero.js: Slideshow Banner</title>
+		<style>
+			html { font-family:Sans-Serif; font-size:75%; height:100%; }
+			body { _height:100%; line-height:180%; margin:0; min-height:100%; padding:1%; }
+			.example { max-width:960px; margin:0 auto; padding:0; clear:both; }
+			.example > article, .example > aside { width:98%; padding:2%; }
+			.example-left > article, .example-left > aside { width:48%; padding:1%; float:left; }
+			.example-right > article, .example-right > aside { width:48%; padding:1%; float:right; }
+		</style>
+		<!--[if lte IE 9]>
+			<meta http-equiv="imagetoolbar" content="no"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<section class="example example-left">
+			<article>
+				<h2>Slideshow Banner</h2>
+				<p>A simple responsive slideshow for graphical banners with touch controls.</p>
+				<p><a class="button downloadButton" href="http://github.com/WoollyMittens/useful-hero" target="_blank">Download (GitHub)</a></p>
+			</article>
+			<aside>
+				<!-- Cut below this -->
+				<style>@import url("./css/useful-hero.css");</style>
+				<figure class="hero hero-framed" id="heroExample"></figure>
+				<script src="./js/useful-hero.js"></script>
+				<script>
+				//<!--
+					// create a new instance of the script
+					var hero = new useful.Hero().init({
+						'element' : document.getElementById('heroExample'),
+						'imageslice' : 'php/imageslice.php?src=../{src}&width={width}',
+						'maxHeight' : 360,
+						'overscan' : 1,
+						'interval' : 8000,
+						'slides' : [
+							{'src' : './img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
+							//{'src' : './img/photo_1a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 2'); evt.preventDefault(); }},
+							{'src' : './img/photo_2a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 3'); evt.preventDefault(); }},
+							//{'src' : './img/photo_3a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 4'); evt.preventDefault(); }},
+							{'src' : './img/photo_9a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 5'); evt.preventDefault(); }}
+							//{'src' : './img/photo_5a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 6'); evt.preventDefault(); }}
+						]
+					});
+				//-->
+				</script>
+				<!-- Cut above this -->
+			</aside>
+		</section>
+	</body>
+</html>
