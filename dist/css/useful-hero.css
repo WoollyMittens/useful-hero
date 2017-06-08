@@ -38,12 +38,13 @@ Applies the "clearfix" hack to a container with floating content
   width: 100%;
   z-index: 0; }
   .hero * {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box; }
   .hero .hero-wrapper {
-    height: 100%;
     overflow: hidden;
     position: relative;
-    width: 100%; }
+    width: 100%;
+    padding-bottom: 75%; }
 
 /*
 	Framed layout moves the controls onto the slide instead of underneath
@@ -59,8 +60,11 @@ Applies the "clearfix" hack to a container with floating content
 	Slides
 */
 .hero .hero-slide {
+  -webkit-transition-property: -webkit-transform;
   transition-property: -webkit-transform;
   transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-transition-duration: 500ms;
   transition-duration: 500ms;
   background-color: #000;
   background-image: url(../img/spiffygif_60x60.gif);
@@ -78,10 +82,15 @@ Applies the "clearfix" hack to a container with floating content
   text-align: center;
   z-index: 5 !important; }
   .hero .hero-slide img {
-    height: auto;
+    height: 100%;
     position: relative;
     vertical-align: top;
-    width: 100%; }
+    width: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
 
 .hero .hero-centre {
   z-index: 10 !important; }

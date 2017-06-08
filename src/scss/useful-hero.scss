@@ -18,10 +18,10 @@
 		box-sizing : border-box;
 	}
 	.hero-wrapper {
-		height : 100%;
 		overflow : hidden;
 		position : relative;
 		width : 100%;
+		padding-bottom: 75%;
 	}
 }
 /*
@@ -59,10 +59,14 @@
 		text-align : center;
 		z-index : 5 !important;
 		img {
-			height : auto;
+			height : 100%;
 			position : relative;
 			vertical-align : top;
-			width : 100%;
+			width : auto;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
 		}
 	}
 	.hero-centre {

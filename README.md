@@ -32,8 +32,6 @@ To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5
 var hero = new useful.Hero().init({
 	'element' : document.getElementById('heroExample'),
 	'imageslice' : 'php/imageslice.php?src=../{src}&width={width}',
-	'maxHeight' : 360,
-	'overscan' : 1,
 	'interval' : 8000,
 	'slides' : [
 		{'src' : './img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
@@ -43,11 +41,7 @@ var hero = new useful.Hero().init({
 });
 ```
 
-**imageslice : {url}** - A web-service able to resize images while preserving the aspect ratio.
-
-**maxHeight : {integer}** - The maximum amount of vertical space the slideshow may occupy.
-
-**overscan : {float}** - The fraction of the image that can safely stick outside the edge of the screen.
+**imageslice : {url}** - A web-service able to resize images while preserving the aspect ratio (example provided).
 
 **interval : {integer}** - Amount of milliseconds between slides.
 
@@ -66,9 +60,10 @@ The following commands are available for development:
 + `npm install` - Installs the prerequisites.
 + `gulp import` - Re-imports libraries from supporting projects to `./src/libs/` if available under the same folder tree.
 + `gulp dev` - Builds the project for development purposes.
-+ `gulp prod` - Builds the project for deployment purposes.
++ `gulp dist` - Builds the project for deployment purposes.
 + `gulp watch` - Continuously recompiles updated files during development sessions.
-+ `gulp serve` - Serves the project on a temporary web server at http://localhost:8000/ .
++ `gulp serve` - Serves the project on a temporary web server at http://localhost:8500/.
++ `gulp php` - Serves the project on a temporary php server at http://localhost:8500/.
 
 ## License
 

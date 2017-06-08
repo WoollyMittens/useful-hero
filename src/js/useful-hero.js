@@ -68,10 +68,6 @@ useful.Hero = function () {
 			// create the image
 			image = document.createElement('img');
 			image.setAttribute('alt', '');
-			image.style.width = config.overscan * 100 + '%';
-			image.style.marginLeft = (1 - config.overscan) / 2 * 100 + '%';
-			image.style.marginRight = image.style.marginLeft;
-			image.style.height = 'auto';
 			image.style.visibility = 'hidden';
 			image.addEventListener('load', this.onImageLoaded(image));
 			image.setAttribute('data-src', slice);
@@ -85,7 +81,6 @@ useful.Hero = function () {
 			config.slides[a].image = image;
 		}
 		// replace the old banner
-		this.element.style.maxHeight = (this.config.maxHeight) ? this.config.maxHeight + 'px' : '100%';
 		this.element.innerHTML = '';
 		this.element.appendChild(wrapper);
 	};
@@ -113,42 +108,12 @@ useful.Hero = function () {
 		this.element.appendChild(menu);
 	};
 
-	this.fixWidth = function (image) {
-		// if there is a max height
-		if (this.config.maxHeight) {
-			// calculate the aspect ratio of the image
-			var aspect = image.offsetWidth / image.offsetHeight;
-			// calculate the max-width of the image according to its ratio
-			image.style.maxWidth = (this.config.maxHeight * aspect) + 'px';
-		}
-	};
-
 	this.prepareImage = function (image) {
 		var _this = this;
-		// if there is a max height, fix the max width to the same ratio
-		this.fixWidth(image);
-		// fit the image in its container
-		this.adjustHeight();
 		// reveal the image
 		image.style.visibility = 'visible';
 		// reveal the parent
 		_this.element.style.visibility = 'visible';
-	};
-
-	this.adjustHeight = function () {
-		var image, height = 0, slides = this.config.slides;
-		// re-fit the images
-		for (var a = 0, b = slides.length; a < b; a += 1) {
-			// get the image that goes with this slide
-			image = slides[a].image;
-			// remember if it is taller
-			height = (image.offsetHeight > height) ? image.offsetHeight : height;
-			// centre the image in its container
-			image.style.top = '50%';
-			image.style.marginTop = -(image.offsetHeight / 2) + 'px';
-		}
-		// implement the new height
-		this.element.style.height = height + 'px';
 	};
 
 	this.loopPage = function () {
@@ -280,7 +245,7 @@ useful.Hero = function () {
 			_this.loadPage(index);
 		};
 	};
-	
+
 };
 
 // return as a require.js module
