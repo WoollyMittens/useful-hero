@@ -1,20 +1,15 @@
 /*
 	Source:
-	van Creij, Maurice (2014). "useful.hero.js: Slideshow Banner", version 20141127, http://www.woollymittens.nl/.
+	van Creij, Maurice (2018). "hero.js: Slideshow Banner", http://www.woollymittens.nl/.
 
 	License:
 	This work is licensed under a Creative Commons Attribution 3.0 Unported License.
 */
 
-// create the global object if needed
-var useful = useful || {};
-
-// extend the global object
-useful.Hero = function () {
+// establish the class
+var Hero = function (config) {
 
 	// PROPERTIES
-
-	"use strict";
 
 	// METHODS
 
@@ -31,9 +26,9 @@ useful.Hero = function () {
 		this.addSlides();
 		this.addControls();
 		// wait for a redraw and start the banner
-		setTimeout(function () { _this.loadPage(0); }, 0);
+		window.requestAnimationFrame(this.loadPage.bind(this, 0));
 		// in case the window is resized
-		window.addEventListener('resize', this.onWindowResized());
+		window.addEventListener('resize', this.onWindowResized.bind(this));
 		// return the object
 		return this;
 	};
@@ -69,7 +64,7 @@ useful.Hero = function () {
 			image = document.createElement('img');
 			image.setAttribute('alt', '');
 			image.style.visibility = 'hidden';
-			image.addEventListener('load', this.onImageLoaded(image));
+			image.addEventListener('load', this.onImageLoaded.bind(this, image));
 			image.setAttribute('data-src', slice);
 			// insert the slide
 			link.appendChild(image);
@@ -96,7 +91,7 @@ useful.Hero = function () {
 			button.innerHTML = a;
 			button.setAttribute('class', 'hero-passive');
 			button.setAttribute('href', '#' + a);
-			button.addEventListener('click', this.onShowPage(a));
+			button.addEventListener('click', this.onShowPage.bind(this, a));
 			// add the button to the menu
 			menu.appendChild(button);
 			// store a pointer to the button
@@ -109,11 +104,10 @@ useful.Hero = function () {
 	};
 
 	this.prepareImage = function (image) {
-		var _this = this;
 		// reveal the image
 		image.style.visibility = 'visible';
 		// reveal the parent
-		_this.element.style.visibility = 'visible';
+		this.element.style.visibility = 'visible';
 	};
 
 	this.loopPage = function () {
@@ -196,59 +190,47 @@ useful.Hero = function () {
 	this.onHandleGestures = function (slide, index) {
 		var _this = this;
 		// add mouse/touch events
-		this.handleGestures = new useful.Gestures().init({
+		this.handleGestures = new Gestures({
 			'element' : slide,
 			'threshold' : 100,
 			'increment' : 0.1,
 			'cancelTouch' : true,
 			'cancelGesture' : true,
-			'swipeLeft' : function () { _this.incrementPage(1); },
-			'swipeRight' : function () { _this.incrementPage(-1); }
+			'swipeLeft' : this.incrementPage.bind(this, 1),
+			'swipeRight' : this.incrementPage.bind(this, -1)
 		});
 		// add click event
-		slide.addEventListener('click', this.onLinkClicked(index));
+		slide.addEventListener('click', this.onLinkClicked.bind(this, index));
 	};
 
-	this.onLinkClicked = function (index) {
-		var _this = this, slide = this.config.slides[index];
-		return function (event) {
-			// if the slide was not busy cancel the click
-			if (_this.config.inert) { event.preventDefault(); }
-			// else if available call the event handler
-			else if (slide.event) { slide.event(event); }
-		};
+	this.onLinkClicked = function (index, evt) {
+		var slide = this.config.slides[index];
+		// if the slide was not busy cancel the click
+		if (this.config.inert) { evt.preventDefault(); }
+		// else if available call the event handler
+		else if (slide.event) { slide.event(evt); }
 	};
 
-	this.onImageLoaded = function (image) {
-		var _this = this;
-		return function () {
-			// centre the image
-			_this.prepareImage(image);
-		};
+	this.onImageLoaded = function (image, evt) {
+		this.prepareImage(image);
 	};
 
-	this.onWindowResized = function () {
-		var _this = this;
-		return function () {
-			// resize the container
-			_this.adjustHeight();
-		};
+	this.onWindowResized = function (evt) {
+		this.adjustHeight();
 	};
 
-	this.onShowPage = function (index) {
-		var _this = this;
-		return function (evt) {
-			// cancel the click event
-			evt = evt || window.event;
-			evt.preventDefault();
-			// show the relevant page number
-			_this.loadPage(index);
-		};
+	this.onShowPage = function (index, evt) {
+		// cancel the click event
+		evt.preventDefault();
+		// show the relevant page number
+		this.loadPage(index);
 	};
+
+	this.init(config);
 
 };
 
 // return as a require.js module
 if (typeof module !== 'undefined') {
-	exports = module.exports = useful.Hero;
+	exports = module.exports = Hero;
 }

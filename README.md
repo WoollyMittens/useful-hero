@@ -1,4 +1,4 @@
-# useful.hero.js: Slideshow Banner
+# hero.js: Slideshow Banner
 
 A simple responsive slideshow for graphical banners with touch controls.
 
@@ -9,27 +9,19 @@ Try the <a href="http://www.woollymittens.nl/default.php?url=useful-hero">demo</
 The stylesheet is best included in the header of the document.
 
 ```html
-<link rel="stylesheet" href="./css/useful-hero.css"/>
+<link rel="stylesheet" href="./css/hero.css"/>
 ```
 
 This include can be added to the header or placed inline before the script is invoked.
 
 ```html
-<script src="./js/useful-hero.js"></script>
-```
-
-To enable the use of HTML5 tags in Internet Explorer 8 and lower, include *html5.js*.
-
-```html
-<!--[if lte IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+<script src="./js/hero.js"></script>
 ```
 
 ## How to start the script
 
 ```javascript
-var hero = new useful.Hero().init({
+var hero = new Hero({
 	'element' : document.getElementById('heroExample'),
 	'imageslice' : 'php/imageslice.php?src=../{src}&width={width}',
 	'interval' : 8000,
