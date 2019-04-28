@@ -23,18 +23,19 @@
 				<!-- Cut below this -->
 				<style>@import url("./css/hero.css");</style>
 				<figure class="hero hero-framed" id="heroExample"></figure>
+				<script src="./lib/gestures.js"></script>
 				<script src="./js/hero.js"></script>
 				<script>
 				//<!--
 					// create a new instance of the script
 					var hero = new Hero({
 						'element' : document.getElementById('heroExample'),
-						'imageslice' : 'php/imageslice.php?src=../{src}&width={width}',
+						'imageslice' : './php/imageslice.php?src=../{src}&width={width}',
 						'interval' : 8000,
 						'slides' : [
-							{'src' : './img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
-							{'src' : './img/photo_2a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 3'); evt.preventDefault(); }},
-							{'src' : './img/photo_9a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 5'); evt.preventDefault(); }}
+							{'src' : 'img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
+							{'src' : 'img/photo_2a.jpg', 'url' : 'http://www.bing.com/', 'event' : function (evt) { console.log('[hero] slide 3'); evt.preventDefault(); }},
+							{'src' : 'img/photo_9a.jpg', 'url' : 'http://www.yahoo.com/', 'event' : function (evt) { console.log('[hero] slide 5'); evt.preventDefault(); }}
 						]
 					});
 				//-->

@@ -231,5 +231,5 @@ var Hero = function (config) {
 };
 
 // return as a require.js module
-if (typeof define != 'undefined') define(['hero'], function () { return Hero });
+if (typeof define != 'undefined') define([], function () { return Hero });
 if (typeof module != 'undefined') module.exports = Hero;
