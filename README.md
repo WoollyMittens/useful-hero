@@ -42,7 +42,7 @@ var Hero = require('js/imagefallback.js');
 ```javascript
 var hero = new Hero({
 	'element' : document.getElementById('heroExample'),
-	'imageslice' : 'php/imageslice.php?src=../{src}&width={width}',
+	'imageslice' : 'php/imageslice.php?src={src}&width={width}',
 	'interval' : 8000,
 	'slides' : [
 		{'src' : './img/photo_0a.jpg', 'url' : 'http://www.google.com/', 'event' : function (evt) { console.log('[hero] slide 1'); evt.preventDefault(); }},
