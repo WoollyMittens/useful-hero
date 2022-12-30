@@ -2,8 +2,6 @@
 
 A simple responsive slideshow for graphical banners with touch controls.
 
-Try the <a href="http://www.woollymittens.nl/default.php?url=useful-hero">demo</a>.
-
 ## How to include the script
 
 The stylesheet is best included in the header of the document.
